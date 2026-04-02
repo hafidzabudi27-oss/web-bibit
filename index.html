@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Produksi & Distribusi Bibit FULL</title>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, select, button { padding: 6px; margin: 4px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #999; padding: 5px; text-align: center; }
+    th { background: #2e7d32; color: white; }
+  </style>
+</head>
+<body>
+
+<h1>📊 Produksi & Distribusi Bibit</h1>
+
+<h2>➕ Input</h2>
+
+<input type="text" id="bibit" placeholder="Nama Bibit">
+<input type="number" id="target" placeholder="Target 2026">
+
+<select id="bulan">
+<option>Jan</option><option>Feb</option><option>Mar</option>
+<option>Apr</option><option>Mei</option><option>Jun</option>
+<option>Jul</option><option>Agu</option><option>Sep</option>
+<option>Okt</option><option>Nov</option><option>Des</option>
+</select>
+
+<input type="number" id="jumlah" placeholder="Jumlah">
+
+<button onclick="produksi()">Produksi</button>
+<button onclick="distribusi()">Distribusi</button>
+<button onclick="downloadExcel()">📥 Download Excel</button>
+
+<h2>📊 PRODUKSI</h2>
+<table id="tabelProduksi">
+<thead>
+<tr>
+<th>Nama Bibit</th>
+<th>Target</th>
+<th>%</th>
+<th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th>
+<th>Mei</th><th>Jun</th><th>Jul</th><th>Agu</th>
+<th>Sep</th><th>Okt</th><th>Nov</th><th>Des</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<h2>🚚 DISTRIBUSI & STOK</h2>
+<table id="tabelDistribusi">
+<thead>
+<tr>
+<th>Nama Bibit</th>
+<th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th>
+<th>Mei</th><th>Jun</th><th>Jul</th><th>Agu</th>
+<th>Sep</th><th>Okt</th><th>Nov</th><th>Des</th>
+<th>Total</th>
+<th>Stok</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+let data = JSON.parse(localStorage.getItem("bibitFull")) || {};
+
+const idx = {"Jan":0,"Feb":1,"Mar":2,"Apr":3,"Mei":4,"Jun":5,
+"Jul":6,"Agu":7,"Sep":8,"Okt":9,"Nov":10,"Des":11};
+
+function save(){ localStorage.setItem("bibitFull", JSON.stringify(data)); }
+
+function init(n){
+  if(!data[n]){
+    data[n] = {
+      target:0,
+      produksi:Array(12).fill(0),
+      distribusi:Array(12).fill(0)
+    };
+  }
+}
+
+function produksi(){
+  let n=bibit.value;
+  let t=parseInt(target.value)||0;
+  let b=bulan.value;
+  let j=parseInt(jumlah.value);
+
+  if(!n||!j) return alert("Isi data!");
+
+  init(n);
+  if(t>0) data[n].target=t;
+  data[n].produksi[idx[b]]+=j;
+
+  save(); render();
+}
+
+function distribusi(){
+  let n=bibit.value;
+  let b=bulan.value;
+  let j=parseInt(jumlah.value);
+
+  if(!n||!j) return alert("Isi data!");
+
+  init(n);
+  data[n].distribusi[idx[b]]+=j;
+
+  save(); render();
+}
+
+function render(){
+  let p="", d="";
+
+  for(let n in data){
+    let pr=data[n].produksi;
+    let ds=data[n].distribusi;
+
+    let totalP=pr.reduce((a,b)=>a+b,0);
+    let totalD=ds.reduce((a,b)=>a+b,0);
+    let stok=totalP-totalD;
+    let persen=data[n].target?((totalP/data[n].target)*100).toFixed(1):0;
+
+    p+="<tr><td>"+n+"</td><td>"+data[n].target+"</td><td>"+persen+"%</td>";
+    pr.forEach(v=>p+="<td>"+v+"</td>");
+    p+="<td>"+totalP+"</td></tr>";
+
+    d+="<tr><td>"+n+"</td>";
+    ds.forEach(v=>d+="<td>"+v+"</td>");
+    d+="<td>"+totalD+"</td><td>"+stok+"</td></tr>";
+  }
+
+  document.querySelector("#tabelProduksi tbody").innerHTML=p;
+  document.querySelector("#tabelDistribusi tbody").innerHTML=d;
+}
+
+function downloadExcel(){
+  let wb=XLSX.utils.book_new();
+
+  let prod=[["Nama","Target","%","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des","Total"]];
+  let dist=[["Nama","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des","Total","Stok"]];
+
+  for(let n in data){
+    let pr=data[n].produksi;
+    let ds=data[n].distribusi;
+
+    let totalP=pr.reduce((a,b)=>a+b,0);
+    let totalD=ds.reduce((a,b)=>a+b,0);
+    let stok=totalP-totalD;
+    let persen=data[n].target?((totalP/data[n].target)*100).toFixed(1):0;
+
+    prod.push([n,data[n].target,persen+"%",...pr,totalP]);
+    dist.push([n,...ds,totalD,stok]);
+  }
+
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(prod),"Produksi");
+  XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(dist),"Distribusi");
+
+  XLSX.writeFile(wb,"Laporan_Bibit_FULL.xlsx");
+}
+
+render();
+</script>
+
+</body>
+</html>
