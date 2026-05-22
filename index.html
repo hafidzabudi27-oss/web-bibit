@@ -3,32 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BPDAS Bone Limboto</title>
 
 <style>
+
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:#dff5dc;
+    background:linear-gradient(rgba(76,175,80,0.7),rgba(76,175,80,0.7)),
+    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+    background-size:cover;
+    background-attachment:fixed;
 }
 
 /* LOGIN */
+
 #loginPage{
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(to bottom,#2e7d32,#81c784);
 }
 
 .login-box{
     background:white;
     padding:30px;
-    border-radius:15px;
-    width:300px;
-    box-shadow:0 0 10px rgba(0,0,0,0.3);
+    border-radius:20px;
+    width:320px;
     text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,0.3);
 }
 
 .login-box h2{
@@ -37,18 +40,19 @@ body{
 
 input{
     width:100%;
-    padding:10px;
+    padding:12px;
     margin-top:10px;
-    border-radius:8px;
+    border-radius:10px;
     border:1px solid #ccc;
+    box-sizing:border-box;
 }
 
 button{
     width:100%;
-    padding:10px;
+    padding:12px;
     margin-top:15px;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     background:#2e7d32;
     color:white;
     font-size:16px;
@@ -60,120 +64,273 @@ button:hover{
 }
 
 /* DASHBOARD */
+
 #dashboard{
     display:none;
     padding:20px;
 }
 
-.header{
+.logo{
     text-align:center;
-    color:#1b5e20;
 }
 
-.card-container{
+.logo img{
+    width:90px;
+}
+
+.title{
+    text-align:center;
+    color:#1b3d1b;
+}
+
+.input-box{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.input-flex{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.input-flex input,
+.input-flex select{
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.btn-group{
+    display:flex;
+    gap:10px;
+}
+
+.btn-produksi{
+    background:green;
+}
+
+.btn-distribusi{
+    background:#795548;
+}
+
+.cards{
     display:flex;
     gap:20px;
-    margin-top:20px;
     flex-wrap:wrap;
+    margin-top:20px;
 }
 
 .card{
     background:white;
-    padding:20px;
-    border-radius:12px;
     flex:1;
     min-width:200px;
+    padding:20px;
+    border-radius:15px;
     text-align:center;
-    box-shadow:0 0 5px rgba(0,0,0,0.2);
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.card h1{
+    color:#2e7d32;
+}
+
+.table-box{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    margin-top:20px;
+    overflow:auto;
 }
 
 table{
     width:100%;
     border-collapse:collapse;
-    margin-top:20px;
-    background:white;
-}
-
-table th, table td{
-    border:1px solid #ccc;
-    padding:10px;
-    text-align:center;
 }
 
 table th{
     background:#2e7d32;
     color:white;
+    padding:10px;
 }
+
+table td{
+    border:1px solid #ddd;
+    padding:8px;
+    text-align:center;
+}
+
+.download{
+    text-align:center;
+    margin-top:20px;
+}
+
+.download button{
+    width:250px;
+}
+
 </style>
 </head>
 
 <body>
 
 <!-- LOGIN -->
+
 <div id="loginPage">
-    <div class="login-box">
-        <h2>LOGIN ADMIN</h2>
 
-        <input type="text" id="username" placeholder="Username">
+<div class="login-box">
 
-        <input type="password" id="password" placeholder="Password">
+<h2>LOGIN ADMIN</h2>
 
-        <button onclick="login()">Login</button>
+<input type="text" id="username" placeholder="Username">
 
-        <p id="error" style="color:red;"></p>
-    </div>
+<input type="password" id="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p id="error" style="color:red;"></p>
+
+</div>
+
 </div>
 
 <!-- DASHBOARD -->
+
 <div id="dashboard">
 
-    <div class="header">
-        <h1>BPDAS BONE LIMBOTO</h1>
-        <h2>SISTEM PRODUKSI & DISTRIBUSI BIBIT</h2>
-    </div>
+<div class="logo">
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg/1200px-Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.svg.png">
+</div>
 
-    <div class="card-container">
+<div class="title">
+<h1>BPDAS<br>BONE LIMBOTO</h1>
+<h2>SISTEM PENCATATAN PRODUKSI & DISTRIBUSI BIBIT</h2>
+</div>
 
-        <div class="card">
-            <h3>Total Produksi</h3>
-            <h1>5000</h1>
-        </div>
+<div class="input-box">
 
-        <div class="card">
-            <h3>Total Distribusi</h3>
-            <h1>3000</h1>
-        </div>
+<h3>INPUT DATA</h3>
 
-        <div class="card">
-            <h3>Sisa Stok</h3>
-            <h1>2000</h1>
-        </div>
+<div class="input-flex">
 
-    </div>
+<input type="text" placeholder="Nama Bibit">
 
-    <table>
-        <tr>
-            <th>Bulan</th>
-            <th>Produksi</th>
-            <th>Distribusi</th>
-            <th>Stok</th>
-        </tr>
+<input type="number" placeholder="Target">
 
-        <tr>
-            <td>Januari</td>
-            <td>1000</td>
-            <td>500</td>
-            <td>500</td>
-        </tr>
+<select>
+<option>Januari</option>
+<option>Februari</option>
+<option>Maret</option>
+<option>April</option>
+<option>Mei</option>
+</select>
 
-        <tr>
-            <td>Februari</td>
-            <td>2000</td>
-            <td>1000</td>
-            <td>1000</td>
-        </tr>
+<input type="number" placeholder="Jumlah">
 
-    </table>
+<div class="btn-group">
+<button class="btn-produksi">Produksi</button>
+<button class="btn-distribusi">Distribusi</button>
+</div>
+
+</div>
+
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Produksi</h3>
+<h1>5000</h1>
+</div>
+
+<div class="card">
+<h3>Total Distribusi</h3>
+<h1>0</h1>
+</div>
+
+<div class="card">
+<h3>Sisa Stok</h3>
+<h1>5000</h1>
+</div>
+
+<div class="card">
+<h3>Capaian</h3>
+<h1>50%</h1>
+</div>
+
+</div>
+
+<div class="table-box">
+
+<h2>DATA PRODUKSI</h2>
+
+<table>
+
+<tr>
+<th>Nama</th>
+<th>Target</th>
+<th>%</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>Mei</th>
+</tr>
+
+<tr>
+<td>Pala</td>
+<td>10000</td>
+<td>50%</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>5000</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="table-box">
+
+<h2>DATA DISTRIBUSI</h2>
+
+<table>
+
+<tr>
+<th>Nama</th>
+<th>Jan</th>
+<th>Feb</th>
+<th>Mar</th>
+<th>Apr</th>
+<th>Mei</th>
+<th>Total</th>
+<th>Stok</th>
+</tr>
+
+<tr>
+<td>Pala</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>5000</td>
+</tr>
+
+</table>
+
+</div>
+
+<div class="download">
+<button>DOWNLOAD EXCEL</button>
+</div>
 
 </div>
 
@@ -181,19 +338,20 @@ table th{
 
 function login(){
 
-    let user = document.getElementById("username").value;
-    let pass = document.getElementById("password").value;
+let user = document.getElementById("username").value;
+let pass = document.getElementById("password").value;
 
-    if(user === "admin" && pass === "12345"){
+if(user === "admin" && pass === "12345"){
 
-        document.getElementById("loginPage").style.display = "none";
+document.getElementById("loginPage").style.display = "none";
+document.getElementById("dashboard").style.display = "block";
 
-        document.getElementById("dashboard").style.display = "block";
+}else{
 
-    }else{
+document.getElementById("error").innerHTML = "Username atau Password Salah!";
 
-        document.getElementById("error").innerHTML = "Username atau Password salah!";
-    }
+}
+
 }
 
 </script>
