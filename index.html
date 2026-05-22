@@ -1,284 +1,159 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-<title>BPDAS Bone Limboto</title>
-<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login BPDAS</title>
 
 <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
 body{
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(rgba(76,175,80,0.85), rgba(240,255,240,0.95)),
-  url('bg.jpg');
-  background-size: cover;
+
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    linear-gradient(rgba(0,128,0,0.5),rgba(0,128,0,0.5)),
+    url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e');
+
+    background-size:cover;
+    background-position:center;
 }
 
-/* HEADER */
-.header{
-  text-align:center;
-  padding:40px 20px;
+.login-box{
+
+    width:350px;
+    background:white;
+
+    padding:40px;
+
+    border-radius:20px;
+
+    box-shadow:0 0 20px rgba(0,0,0,0.3);
+
+    text-align:center;
 }
+
 .logo{
-  width:120px;
-}
-.header h1{
-  margin:10px 0;
-  color:#2e7d32;
-}
-.header h2{
-  margin:5px;
-  color:#1b5e20;
+    width:90px;
+    margin-bottom:10px;
 }
 
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.95);
-  margin:20px auto;
-  padding:20px;
-  border-radius:15px;
-  width:90%;
-  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+h2{
+    color:#1b5e20;
+    margin-bottom:30px;
 }
 
-/* INPUT */
-input, select{
-  padding:10px;
-  margin:5px;
-  border-radius:8px;
-  border:1px solid #ccc;
+.input-box{
+
+    width:100%;
+    padding:12px;
+
+    margin:10px 0;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    font-size:16px;
 }
 
-/* BUTTON */
 button{
-  padding:10px 15px;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  color:white;
-}
-.btn-produksi{ background:#2e7d32; }
-.btn-distribusi{ background:#8d6e63; }
-.btn-excel{
-  background:#1b5e20;
-  width:250px;
-  display:block;
-  margin:20px auto;
-  font-size:16px;
+
+    width:100%;
+    padding:12px;
+
+    background:#1b5e20;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:0.3s;
 }
 
-/* SUMMARY */
-.summary{
-  display:flex;
-  justify-content:center;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.box{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  width:200px;
-  text-align:center;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-}
-.box span{
-  font-size:24px;
-  font-weight:bold;
-  color:#2e7d32;
+button:hover{
+    background:#2e7d32;
 }
 
-/* TABLE */
-.tables{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  justify-content:center;
-}
-.table-card{
-  background:white;
-  padding:15px;
-  border-radius:12px;
-  width:45%;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-}
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-th,td{
-  border:1px solid #ddd;
-  padding:6px;
-  text-align:center;
-}
-th{
-  background:#2e7d32;
-  color:white;
+.footer{
+
+    margin-top:15px;
+
+    color:gray;
+
+    font-size:13px;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<div class="header">
-  <img src="logo.png" class="logo">
-  <h1>BPDAS</h1>
-  <h2>BONE LIMBOTO</h2>
-  <h2>SISTEM PENCATATAN PRODUKSI & DISTRIBUSI BIBIT</h2>
-</div>
+<div class="login-box">
 
-<div class="card">
-<h3>INPUT DATA</h3>
+<img class="logo"
+src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.png/800px-Logo_Kementerian_Lingkungan_Hidup_dan_Kehutanan.png">
 
-<input id="bibit" placeholder="Nama Bibit">
-<input id="target" type="number" placeholder="Target">
+<h2>BPDAS BONE LIMBOTO</h2>
 
-<select id="bulan">
-<option>Jan</option><option>Feb</option><option>Mar</option>
-<option>Apr</option><option>Mei</option><option>Jun</option>
-<option>Jul</option><option>Agu</option><option>Sep</option>
-<option>Okt</option><option>Nov</option><option>Des</option>
-</select>
+<input type="text"
+id="username"
+class="input-box"
+placeholder="Username">
 
-<input id="jumlah" type="number" placeholder="Jumlah">
+<input type="password"
+id="password"
+class="input-box"
+placeholder="Password">
 
-<button class="btn-produksi" onclick="produksi()">Produksi</button>
-<button class="btn-distribusi" onclick="distribusi()">Distribusi</button>
-</div>
+<button onclick="login()">LOGIN</button>
 
-<div class="summary">
-<div class="box"><b>Total Produksi</b><br><span id="totP">0</span></div>
-<div class="box"><b>Total Distribusi</b><br><span id="totD">0</span></div>
-<div class="box"><b>Sisa Stok</b><br><span id="stok">0</span></div>
-<div class="box"><b>Capaian</b><br><span id="capai">0%</span></div>
-</div>
-
-<div class="tables">
-
-<div class="table-card">
-<h3>DATA PRODUKSI</h3>
-<table id="prod">
-<thead>
-<tr>
-<th>Nama</th><th>Target</th><th>%</th>
-<th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th>
-<th>Mei</th><th>Jun</th><th>Jul</th><th>Agu</th>
-<th>Sep</th><th>Okt</th><th>Nov</th><th>Des</th>
-<th>Total</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
-</div>
-
-<div class="table-card">
-<h3>DATA DISTRIBUSI</h3>
-<table id="dist">
-<thead>
-<tr>
-<th>Nama</th>
-<th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th>
-<th>Mei</th><th>Jun</th><th>Jul</th><th>Agu</th>
-<th>Sep</th><th>Okt</th><th>Nov</th><th>Des</th>
-<th>Total</th><th>Stok</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div class="footer">
+Sistem Produksi & Distribusi Bibit
 </div>
 
 </div>
-
-<button class="btn-excel" onclick="downloadExcel()">DOWNLOAD EXCEL</button>
 
 <script>
-let data = JSON.parse(localStorage.getItem("bibit")) || {};
-const idx = {"Jan":0,"Feb":1,"Mar":2,"Apr":3,"Mei":4,"Jun":5,"Jul":6,"Agu":7,"Sep":8,"Okt":9,"Nov":10,"Des":11};
 
-function save(){ localStorage.setItem("bibit",JSON.stringify(data)); }
+function login(){
 
-function init(n){
-if(!data[n]){
-data[n]={target:0,produksi:Array(12).fill(0),distribusi:Array(12).fill(0)};
-}}
+    let user =
+    document.getElementById("username").value;
 
-function produksi(){
-let n=bibit.value,t=parseInt(target.value)||0,b=bulan.value,j=parseInt(jumlah.value);
-if(!n||!j)return alert("Isi data!");
-init(n);
-if(t>0)data[n].target=t;
-data[n].produksi[idx[b]]+=j;
-save();render();
+    let pass =
+    document.getElementById("password").value;
+
+    if(user=="persemaian" && pass=="bpdasbonelimboto"){
+
+        window.location.href="dashboard.html";
+
+    }else{
+
+        alert("Username atau Password salah!");
+
+    }
 }
 
-function distribusi(){
-let n=bibit.value,b=bulan.value,j=parseInt(jumlah.value);
-if(!n||!j)return alert("Isi data!");
-init(n);
-data[n].distribusi[idx[b]]+=j;
-save();render();
-}
-
-function render(){
-let p="",d="",totP=0,totD=0,totalTarget=0;
-
-for(let n in data){
-let pr=data[n].produksi;
-let ds=data[n].distribusi;
-
-let totalP=pr.reduce((a,b)=>a+b,0);
-let totalD=ds.reduce((a,b)=>a+b,0);
-let stok=totalP-totalD;
-let persen=data[n].target?((totalP/data[n].target)*100).toFixed(1)+"%":"0.0%";
-
-totP+=totalP;
-totD+=totalD;
-totalTarget+=data[n].target;
-
-p+="<tr><td>"+n+"</td><td>"+data[n].target+"</td><td>"+persen+"</td>";
-pr.forEach(v=>p+="<td>"+v+"</td>");
-p+="<td>"+totalP+"</td></tr>";
-
-d+="<tr><td>"+n+"</td>";
-ds.forEach(v=>d+="<td>"+v+"</td>");
-d+="<td>"+totalD+"</td><td>"+stok+"</td></tr>";
-}
-
-document.querySelector("#prod tbody").innerHTML=p;
-document.querySelector("#dist tbody").innerHTML=d;
-
-document.getElementById("totP").innerText=totP;
-document.getElementById("totD").innerText=totD;
-document.getElementById("stok").innerText=totP-totD;
-
-let capaian = totalTarget ? ((totP/totalTarget)*100).toFixed(1)+"%" : "0%";
-document.getElementById("capai").innerText = capaian;
-}
-
-function downloadExcel(){
-let wb=XLSX.utils.book_new();
-let prod=[["Nama","Target","%","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des","Total"]];
-let dist=[["Nama","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des","Total","Stok"]];
-
-for(let n in data){
-let pr=data[n].produksi;
-let ds=data[n].distribusi;
-
-let totalP=pr.reduce((a,b)=>a+b,0);
-let totalD=ds.reduce((a,b)=>a+b,0);
-let stok=totalP-totalD;
-let persen=data[n].target?((totalP/data[n].target)*100).toFixed(1)+"%":"0.0%";
-
-prod.push([n,data[n].target,persen,...pr,totalP]);
-dist.push([n,...ds,totalD,stok]);
-}
-
-XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(prod),"Produksi");
-XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet(dist),"Distribusi");
-XLSX.writeFile(wb,"Laporan_BPDAS.xlsx");
-}
-
-render();
 </script>
 
 </body>
